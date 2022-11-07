@@ -17,7 +17,6 @@ public class JavaToJSON {
 		JavaToJSON converter = new JavaToJSON();
 		converter.jsonToPojo();
 		converter.pojoToJson();
-
 	}
 
 	private void pojoToJson() {
@@ -42,17 +41,28 @@ public class JavaToJSON {
 
 	private void jsonToPojo() {
 		ObjectMapper objectMapper1 = new ObjectMapper();
+		JFrames frame =new JFrames();
+		
 		try {
 			URL url = new URL("https://reqres.in/api/unknown");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			String jsonResponse = reader.readLine();
 			Root root = objectMapper1.readValue(jsonResponse, Root.class);
+			String []strArr1= {"page:" + root.page , "per_page:" + root.per_page ,"total:" + root.total
+					,"total pages:" + root.total_pages , "url:" + root.support.url};
+			frame.toJFrame(strArr1);
+			
 			System.out.println("page:" + root.page + "\nper_page:" + root.per_page + "\ntotal:" + root.total
 					+ "\ntotal pages:" + root.total_pages + "\nurl:" + root.support.url);
-			for (Datum d : root.data) {
-				System.out.println("\nid:" + d.id + "\nname:" + d.name + "\nyear:" + d.year + "\ncolor:" + d.color
-						+ "\npantone_value:" + d.pantone_value);
+			
+			for (Datum data : root.data) {
+				String strArr[]= {"id:" + data.id , "name:" + data.name , "year:" + data.year , "color:" + data.color
+						, "pantone_value:" + data.pantone_value};
+				frame.toJFrame(strArr);
+				
+				System.out.println("\nid:" + data.id + "\nname:" + data.name + "\nyear:" + data.year + "\ncolor:" + data.color
+						+ "\npantone_value:" + data.pantone_value);
 			}
 		} catch (JsonMappingException e) {
 			System.out.println(e.getMessage());
@@ -65,6 +75,8 @@ public class JavaToJSON {
 		}
 
 	}
+	
+	
 
 	// pojo inner class
 	static class Datum {
