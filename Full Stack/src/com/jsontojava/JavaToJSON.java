@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-	
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,12 +15,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JavaToJSON {
 	public static void main(String args[]) {
 		JavaToJSON converter = new JavaToJSON();
-		converter.jsonToJava();
-		converter.javaToJson();
+		converter.jsonToPojo();
+		converter.pojoToJson();
 
 	}
 
-	private void javaToJson() {
+	private void pojoToJson() {
 		ObjectMapper objectMapper = new ObjectMapper();
 		ArrayList<Employee> list = new ArrayList<>();
 		Employee employee1 = new Employee(100, "bala");
@@ -40,27 +40,24 @@ public class JavaToJSON {
 		}
 	}
 
-	private void jsonToJava() {
+	private void jsonToPojo() {
 		ObjectMapper objectMapper1 = new ObjectMapper();
 		try {
 			URL url = new URL("https://reqres.in/api/unknown");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			String jsonResponse=reader.readLine();
-				try {
-					Root root = objectMapper1.readValue(jsonResponse, Root.class);
-					System.out.println("page:" + root.page + "\nper_page:" + root.per_page + "\ntotal:" + root.total
-							+ "\ntotal pages:" + root.total_pages + "\nurl:" + root.support.url);
-					for (Datum d : root.data) {
-						System.out.println("\nid:" + d.id + "\nname:" + d.name + "\nyear:" + d.year + "\ncolor:"
-								+ d.color + "\npantone_value:" + d.pantone_value);
-					}
-				} catch (JsonMappingException e) {
-					System.out.println(e.getMessage());
-				} catch (JsonProcessingException e) {
-					System.out.println(e.getMessage());
-				}
-			
+			String jsonResponse = reader.readLine();
+			Root root = objectMapper1.readValue(jsonResponse, Root.class);
+			System.out.println("page:" + root.page + "\nper_page:" + root.per_page + "\ntotal:" + root.total
+					+ "\ntotal pages:" + root.total_pages + "\nurl:" + root.support.url);
+			for (Datum d : root.data) {
+				System.out.println("\nid:" + d.id + "\nname:" + d.name + "\nyear:" + d.year + "\ncolor:" + d.color
+						+ "\npantone_value:" + d.pantone_value);
+			}
+		} catch (JsonMappingException e) {
+			System.out.println(e.getMessage());
+		} catch (JsonProcessingException e) {
+			System.out.println(e.getMessage());
 		} catch (MalformedURLException e) {
 			System.out.println(e.getMessage());
 		} catch (IOException e) {
@@ -68,7 +65,7 @@ public class JavaToJSON {
 		}
 
 	}
-	
+
 	// pojo inner class
 	static class Datum {
 		public int id;
@@ -93,5 +90,3 @@ public class JavaToJSON {
 	}
 
 }
-
-
