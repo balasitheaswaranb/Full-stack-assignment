@@ -14,9 +14,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JavaToJSON {
 	public static void main(String args[]) {
-		JavaToJSON java = new JavaToJSON();
-		java.jsonToJava();
-		java.javaToJson();
+		JavaToJSON converter = new JavaToJSON();
+		converter.jsonToJava();
+		converter.javaToJson();
 
 	}
 
@@ -31,13 +31,12 @@ public class JavaToJSON {
 		list.add(employee3);
 		Employee employee4 = new Employee(100, "bala");
 		list.add(employee4);
-
 		try {
 			String jsonData = objectMapper.writeValueAsString(list);
 			System.out.println();
 			System.out.println(jsonData);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -47,23 +46,21 @@ public class JavaToJSON {
 			URL url = new URL("https://reqres.in/api/unknown");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			String response;
-			while ((response = reader.readLine()) != null) {
+			String jsonResponse=reader.readLine();
 				try {
-					Root root = objectMapper1.readValue(response, Root.class);
-
+					Root root = objectMapper1.readValue(jsonResponse, Root.class);
 					System.out.println("page:" + root.page + "\nper_page:" + root.per_page + "\ntotal:" + root.total
-							+ "\ntotal pages:" + root.total_pages + "\ndatas" + "url:" + root.support.url);
+							+ "\ntotal pages:" + root.total_pages + "\nurl:" + root.support.url);
 					for (Datum d : root.data) {
 						System.out.println("\nid:" + d.id + "\nname:" + d.name + "\nyear:" + d.year + "\ncolor:"
 								+ d.color + "\npantone_value:" + d.pantone_value);
 					}
 				} catch (JsonMappingException e) {
-					e.printStackTrace();
+					System.out.println(e.getMessage());
 				} catch (JsonProcessingException e) {
-					e.printStackTrace();
+					System.out.println(e.getMessage());
 				}
-			}
+			
 		} catch (MalformedURLException e) {
 			System.out.println(e.getMessage());
 		} catch (IOException e) {
@@ -72,6 +69,7 @@ public class JavaToJSON {
 
 	}
 }
+// pojo class
 
 class Datum {
 	public int id;
