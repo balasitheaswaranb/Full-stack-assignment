@@ -53,10 +53,10 @@ public class JavaToJSON {
 					Root root = objectMapper1.readValue(response, Root.class);
 
 					System.out.println("page:" + root.page + "\nper_page:" + root.per_page + "\ntotal:" + root.total
-							+ "\ntotal pages:" + root.total_pages + "\ndatas"+ "url:" + root.support.url);
+							+ "\ntotal pages:" + root.total_pages + "\ndatas" + "url:" + root.support.url);
 					for (Datum d : root.data) {
-						System.out.println("\nid:" + d.id + "\nname:" + d.name + "\nyear:" + d.year + "\ncolor:" + d.color
-								+ "\npantone_value:" + d.pantone_value);
+						System.out.println("\nid:" + d.id + "\nname:" + d.name + "\nyear:" + d.year + "\ncolor:"
+								+ d.color + "\npantone_value:" + d.pantone_value);
 					}
 				} catch (JsonMappingException e) {
 					e.printStackTrace();
@@ -94,16 +94,3 @@ class Support {
 	public String url;
 	public String text;
 }
-//try {
-//
-//	List<Employee> list1 = objectMapper1.readValue(jsonData, new TypeReference<List<Employee>>() {
-//	});
-//	System.out.println(list1.size());
-//	list1.forEach(e -> {
-//		System.out.println(e.getEmployeeId() + ", " + e.getName());
-//	});
-//} catch (JsonMappingException e) {
-//	e.printStackTrace();
-//} catch (JsonProcessingException e) {
-//	e.printStackTrace();
-//}
