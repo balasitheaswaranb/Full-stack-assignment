@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JavaToJSON {
 	public static void main(String args[]) {
-		JavaToJSON converter = new JavaToJSON();
+		JavaToJSON  converter = new JavaToJSON();
 		converter.jsonToPojo();
 		converter.pojoToJson();
 	}

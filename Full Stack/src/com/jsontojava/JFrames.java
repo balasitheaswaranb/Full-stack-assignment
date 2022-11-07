@@ -10,7 +10,7 @@ public class JFrames {
 	Panel panel = new Panel();
 	
 void toJFrame(String[]strArr) {
-	JList<String> jlist=new JList<String>(strArr);
+	JList<String>  jlist=new JList<String>(strArr);
 	panel.add(jlist);
 	jFrame.add(panel);
 	jFrame.setSize(1000,1000);
