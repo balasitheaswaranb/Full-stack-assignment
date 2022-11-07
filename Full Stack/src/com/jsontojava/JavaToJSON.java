@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-
+	
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -68,27 +68,30 @@ public class JavaToJSON {
 		}
 
 	}
-}
-// pojo class
+	
+	// pojo inner class
+	static class Datum {
+		public int id;
+		public String name;
+		public int year;
+		public String color;
+		public String pantone_value;
+	}
 
-class Datum {
-	public int id;
-	public String name;
-	public int year;
-	public String color;
-	public String pantone_value;
+	static class Root {
+		public int page;
+		public int per_page;
+		public int total;
+		public int total_pages;
+		public ArrayList<Datum> data;
+		public Support support;
+	}
+
+	static class Support {
+		public String url;
+		public String text;
+	}
+
 }
 
-class Root {
-	public int page;
-	public int per_page;
-	public int total;
-	public int total_pages;
-	public ArrayList<Datum> data;
-	public Support support;
-}
 
-class Support {
-	public String url;
-	public String text;
-}
